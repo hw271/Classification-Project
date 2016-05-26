@@ -11,6 +11,7 @@ This project implements 8 **_classification_** approaches including:
 
 All models implements the interface Classifier, which is writter in Classifier.java
 The interface contains three methods:
+
 1. void train(DataSet trainSet);
 2. int classify(Example example1);
 3. Performance classify(DataSet test);
