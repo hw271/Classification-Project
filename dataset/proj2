@@ -1,0 +1,127 @@
+[l1-class]learner
+	[l2-class Estimator]
+		//每一个nominal的属性有一个categoricalEstimator，其中的conditionalProbability[]存储的是不同的类对这个属性的条件概率
+		[l3-class categoricalEstimator]
+			
+			ArrayList<Double> conditionalProbability[];
+			->method1:addValue(int class)
+					//调整p(a = attribute j|c=class i)	= (# of examples with att j in class)/(# of examples in class i)
+			->method2:getProbability(int classIndex)
+					//获取条件概率p(a = attribute j|c=class i)并且进行+1smooth
+						
+		//每一个numeric的属性都有一个normalEstimator
+		[l3-class normalEstimator]
+			
+			ArrayList<Double> param; //param[0] 存mean； param[1]存variance； param[2]存n
+			->method1: addValue(double newV)
+					mean=(mean*n+newV)/(n+1);
+					variance=sqrt((variance*variance*n+(newV-mean)*(newV-mean))/(n+1));
+					n=n+1;
+					//用来修改module中的mean和variance，每个module对应一个类，即
+			->method2: getProbability(int classIndex)
+					p=exp(-(x-mean)powerOf2/(2*variance))/(standardError*sqrt(2*3.14))
+			
+	
+	[l2-class Classifier]
+		[l3-class IBk classifier]
+		
+			DataSet trainSet;
+			void train(DataSet){
+				
+			}
+			int classify(Example){
+				distribution[]=getDistribution(Example);
+				choose the class with majority vote;
+				return classLable;
+			}
+			
+			performance classify(TestSet test){
+				for each Example:
+					classIndex = classify(Example);
+					if(classIndex!=trueClassIndex){
+						#misClass+=1;
+					}
+					performance.accuracy=1-#misClass/# of examples;
+					return performance;
+			}
+			Double[] getDistribution(observation o){
+				o=scaler.scale(o);
+				neighbor heap=findNeighbors(o,k);
+				distribution over classlabel: initial = 1/(# of examples)
+				for each neighbor
+					distribution[neighbor class index]+=1.0;
+				return normalized(distribution);
+			}
+			
+			priorQueue findNeighbor(o,k){
+				//对于kNN来说，get到离这个点最近的k个点
+				建立一个大小为k的优先队列priorQueue
+				for each example in database{
+					if distance(example_i, observation)<bigggestElem in priorQueue
+						priorQueue.push(example_i);
+						priorQueue.pop(biggestElem)
+				}
+				最后返回这个大小为k的队列
+			}
+		
+		[l3-class NaiveBayes classifier]
+			double prior[];
+			void train(DataSet){
+				prior[class];
+				
+				生成一个categoricalEstimator[];
+				生成一个normalEstimator
+				conditionProbability[attr i|class j];
+				
+			}
+			int classify(Example){
+				foreach attr_i in example:
+					foreach class_j:
+						p(example|class_j)*=Estimator.getProbability();	//用log-sum-exp trick
+				prior[]=getDistribution(observation);
+				posterior=prior(class_j)*p(examples|class_j);
+				choose the class with bigger posterior;	
+				return classIndex
+				
+			}
+			performance classify(DataSet){
+				for each example in DataSet(){
+					classGet=classify(example);
+					if(classGet!=classTrue){
+						#misClass+=1;	
+					}
+				}
+				performance.accuracy=1-#misClass/# of examples;
+				performance.variance=npq(p用accuracy来模拟)
+				performance.standardError=sqrt(variance);
+				performance.95%confidenceInterval:zn=1.96； accuracy(ac)的95%的置信空间是 ac+-zn*sqrt(ac*(1-ac)/n); n=# of examples
+					
+			}
+			Double[] getDistribution(observation o){
+				return Estimator.getProbability;
+			}
+	
+	[l2-class Performance]
+		variance;
+		accuracy;
+		standard error;
+		95% confidence interval;
+	
+	[l2-class Evaluator]
+		->method1: k-folds cross validation(classifier, DataSet d1){
+			for(i=1:folds)
+				train.clear();
+				for(j=1:folds)
+					if(i!=j) trainSet+=partition[j];
+					else testSet=Partition[j];
+				tempAccuracy=hold-on-method(classifier,trainSet,testSet);
+				accuracy+=tempAccuracy
+			}
+			accuracy/=folds
+		}
+		->hold-on method(classifier, DataSet train, DataSet test){
+					classifier.train(TrainSet);
+					performance = classifier.classify(TestSet);
+		}
+		
+		
