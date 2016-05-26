@@ -27,7 +27,7 @@ We apply our approaches on 4 datasets:
 When running kNN model, the user might want to set the parameter k. 
 For all models, the user might want to set k-folds-cross parameter x.
 (For example, 
->"java IBk -k 3 -x 10 breast-cancer-wisconsin" 
+>java IBk -k 3 -x 10 breast-cancer-wisconsin
 
 runs the kNN model using dataset breast-cancer-wisconsin. It calculates 3 nearest neighbor to conduct analysis and evaluate the model's performance by 10 folds cross validation.) 
 Please pay attention that when you do not enter -x or -k, default value for the parameters are 10 and 3. 
