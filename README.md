@@ -16,7 +16,7 @@ The interface contains three methods:
 2. int classify(Example example1);
 3. Performance classify(DataSet test);
 
-All datasets in this project are downloaded from [UCI](https://archive.ics.uci.edu/ml/datasets.html)
+All datasets in this project are downloaded from [UCI](https://archive.ics.uci.edu/ml/datasets.html).
 We apply our approaches on 4 datasets: 
 
 1. bike
