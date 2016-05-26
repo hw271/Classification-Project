@@ -1,4 +1,4 @@
-This project implements 8 classification approaches including:
+This project implements 8 **_classification_** approaches including:
 
 1.  Naive Bayes (NaiveBayes.java)
 2.  kNN (IBk.java)
