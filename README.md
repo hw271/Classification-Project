@@ -1,12 +1,13 @@
 This project implements 8 classification approaches including:
-1.Naive Bayes (NaiveBayes.java)
-2.kNN (IBk.java)
-3.edited kNN (EditedkNN.java)
-4.decision tree (DecisionTree.java)
-5.Hoeffding tree (HoeffdingTree.java)
-6.Perceptron (Perceptron.java)
-7.Kernal Perceptron: polynomial kernal and Gaussan kernal (KernalPerceptron.java)
-8.Support Vector Machine (KernalSVM.java)
+
+1.  Naive Bayes (NaiveBayes.java)
+2.  kNN (IBk.java)
+3.  edited kNN (EditedkNN.java)
+4.  decision tree (DecisionTree.java)
+5.  Hoeffding tree (HoeffdingTree.java)
+6.  Perceptron (Perceptron.java)
+7.  Kernal Perceptron: polynomial kernal and Gaussan kernal (KernalPerceptron.java)
+8.  Support Vector Machine (KernalSVM.java)
 
 All models implements the interface Classifier, which is writter in Classifier.java
 The interface contains three methods:
